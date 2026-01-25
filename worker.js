@@ -6,7 +6,7 @@ const TMDB_BASE = "https://api.themoviedb.org/3";
 
 async function handleRequest(request) {
   const url = new URL(request.url);
-  const path = url.pathname;
+  let path = url.pathname;
   const search = url.searchParams;
   if (path.startsWith("/api/3")) {
   path = path.replace("/api/3", "");
