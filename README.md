@@ -13,7 +13,7 @@
 
 ## 🚀 快速部署
 
-### 前置要求
+### 前置要求  
 
 - [x] Cloudflare 账户
 - [x] TMDB API 密钥（[申请地址](https://www.themoviedb.org/settings/api)）
