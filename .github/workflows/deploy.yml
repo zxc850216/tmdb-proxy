@@ -3,17 +3,13 @@ name: 部署到 Cloudflare Workers
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'worker.js'
-      - 'wrangler.toml'
-      - 'package.json'
-      - '.github/workflows/deploy.yml'
+    # 移除 paths 限制，任何提交到 main 分支都会触发部署
+  workflow_dispatch: # 新增：支持在 GitHub 网页手动触发部署
 
 jobs:
-  deploy:  # job ID 必须使用英文
+  deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -31,3 +27,5 @@ jobs:
           wrangler deploy --var TMDB_API_KEY:"${{ secrets.TMDB_API_KEY }}"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # 如果配置了 ACCOUNT_ID，可以加上：
+          # CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
